@@ -8,7 +8,8 @@ export const getPathways = async () => {
       "https://bland.abubakarkhalid.com/pathways/list"
     );
     if (pathways.status === 200) {
-      return pathways.data;
+      console.log(pathways);
+      return JSON.parse(pathways.data);
     }
     return [];
   } catch (error) {

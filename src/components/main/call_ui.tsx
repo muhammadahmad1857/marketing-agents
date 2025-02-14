@@ -43,12 +43,14 @@ type FeaturesAccordionProps = {
   basicFeaturesData: FeatureType[];
   advancedFeaturesData: FeatureType[];
   apiEndpoint: string;
+  type?: "pathway" | "simple";
 };
 
 export function CallUI({
   basicFeaturesData,
   advancedFeaturesData,
   apiEndpoint,
+  type = "simple",
 }: FeaturesAccordionProps) {
   const [basicFeatures, setBasicFeatures] = useState<FeatureType[]>([]);
   const [advancedFeatures, setAdvancedFeatures] = useState<FeatureType[]>([]);
@@ -220,18 +222,33 @@ export function CallUI({
       toast.error("user is unauthorized");
       return;
     }
-    const payload = {
-      ...formData,
-      interruption_threshold: Number(formData.interruption_threshold),
-      temperature: Number(formData.temperature),
-      wait_for_greeting: formData.wait_for_greeting === "true",
-      block_interruptions: formData.block_interruptions === "true",
-      noise_cancellation: formData.noise_cancellation === "true",
-      ignore_button_press: formData.ignore_button_press === "true",
-      tools: Array.isArray(formData.tools) ? formData.tools : [],
-      keywords: Array.isArray(formData.keywords) ? formData.keywords : [],
-      user_email: email,
-    };
+    let payload;
+    if (type === "simple") {
+      payload = {
+        ...formData,
+        interruption_threshold: Number(formData.interruption_threshold),
+        temperature: Number(formData.temperature),
+        wait_for_greeting: formData.wait_for_greeting === "true",
+        block_interruptions: formData.block_interruptions === "true",
+        noise_cancellation: formData.noise_cancellation === "true",
+        ignore_button_press: formData.ignore_button_press === "true",
+        record_call: formData.record_call === "true",
+        tools: Array.isArray(formData.tools) ? formData.tools : [],
+        keywords: Array.isArray(formData.keywords) ? formData.keywords : [],
+        user_email: email,
+      };
+    } else {
+      payload = {
+        ...formData,
+        pathway_version: Number(formData.pathway_version),
+        wait_for_greeting: formData.wait_for_greeting === "true",
+        block_interruptions: formData.block_interruptions === "true",
+        noise_cancellation: formData.noise_cancellation === "true",
+        ignore_button_press: formData.ignore_button_press === "true",
+        record_call: formData.record_call === "true",
+        user_email: email,
+      };
+    }
 
     console.log("user", payload);
     try {

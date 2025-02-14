@@ -162,6 +162,7 @@ defaultValue: pathways.length > 0 ? pathways[0].id : null,
         basicFeaturesData={basicFeatures}
         advancedFeaturesData={advancedFeatures}
         apiEndpoint={apiEndpoint}
+        type="pathway"
       />
     </div>
   );
