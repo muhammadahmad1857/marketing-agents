@@ -2,8 +2,9 @@ import { getPathways } from "@/actions/pathways";
 import { CallUI, FeatureType } from "@/components/main/call_ui";
 
 export default async function FeaturesPage() {
-  const pathways = await getPathways();
-  console.log(pathways);
+    const rawPathways = await getPathways();
+    const pathways = Array.isArray(rawPathways) ? rawPathways : [];
+
   const languages = [
     { code: "en", name: "English" },
     { code: "en-US", name: "English (US)" },
@@ -104,7 +105,7 @@ export default async function FeaturesPage() {
       type: "dropdown",
       label: "Pathway ID",
       placeholder: "Automatically fetched",
-      defaultValue: pathways[0].id,
+defaultValue: pathways.length > 0 ? pathways[0].id : null,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       options: pathways.map((pathway:any) => ({
         label: `${pathway.name}`,
