@@ -100,13 +100,7 @@ export default async function FeaturesPage() {
       defaultValue: "true", // Will be converted to boolean before sending
       required: true,
     },
-    {
-      key: "interruption_threshold",
-      type: "text",
-      label: "Interruption Threshold",
-      placeholder: "Enter interruption threshold",
-      defaultValue: 100,
-    },
+
     {
       key: "pathway_id",
       type: "dropdown",
@@ -157,6 +151,13 @@ export default async function FeaturesPage() {
       label: "Pathway Version",
       placeholder: "Automatically fetched",
       defaultValue: 0, // This will be updated using getPathway()
+    },
+    {
+      key: "interruption_threshold",
+      type: "text",
+      label: "Interruption Threshold",
+      placeholder: "Enter interruption threshold",
+      defaultValue: 100,
     },
   ];
 
