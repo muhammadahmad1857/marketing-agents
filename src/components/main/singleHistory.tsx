@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 
 const SingleHistory = ({ id }: { id: string }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [copied, setCopied] = useState(true);
+  const [copied, setCopied] = useState(false);
   const [call, setCall] = useState<CallHistory | null>(null);
 
   const router = useRouter();
@@ -95,6 +95,9 @@ const SingleHistory = ({ id }: { id: string }) => {
             onClick={() => {
               navigator.clipboard.writeText(call.call_id);
               setCopied(true);
+              setTimeout(() => {
+                setCopied(false);
+              }, 1000);
             }}
           >
             {copied ? (
@@ -139,7 +142,10 @@ const SingleHistory = ({ id }: { id: string }) => {
                 </Badge>
               }
             />
-            <DetailItem label="Price" value={`$${call.price ? call.price.toFixed(2):'0.00'}`} />
+            <DetailItem
+              label="Price"
+              value={`$${call.price ? call.price.toFixed(2) : "0.00"}`}
+            />
           </CardContent>
         </Card>
 

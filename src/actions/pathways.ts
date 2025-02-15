@@ -1,14 +1,14 @@
 "use server";
 
-import axios from "axios";
 
 export const getPathways = async () => {
   try {
-    const pathways = await axios.get(
+    const pathways = await fetch(
       "https://bland.abubakarkhalid.com/pathways/list"
     );
     if (pathways.status === 200) {
-      return JSON.parse(pathways.data);
+      const data = await pathways.json();
+      return data;
     }
     return [];
   } catch (error) {

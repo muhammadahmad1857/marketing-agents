@@ -20,9 +20,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import type React from "react"; // Added import for React
-import axios from "axios";
 import { getCurrentUser } from "@/actions/user";
 import { Loader2, X } from "lucide-react";
 import { motion } from "framer-motion";
@@ -251,18 +250,23 @@ export function CallUI({
 
     console.log("user", payload);
     try {
-      const response = await axios.post(apiEndpoint, {
-        ...formData,
-        user_email: email,
-      });
-
-      if (response.status !== 200) {
-        const errorData = await JSON.parse(response.data);
+     const response=  await fetch(
+        apiEndpoint,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      )
+      if (!response.ok) {
+        const errorData = await response.json();
         toast.error(errorData.message || "Failed to submit data");
         return;
       }
 
-      const result = await JSON.parse(response.data);
+      const result = await response.json();
       console.log("Submission successful:", result);
       const callId = result.call_id;
       setCallId(callId);
@@ -294,12 +298,10 @@ export function CallUI({
       setTranscriptDisabled(true);
 
       const response =
-        await axios.get(`https://bland.abubakarkhalid.com/call_transcript/${callId}
+        await fetch(`https://bland.abubakarkhalid.com/call_transcript/${callId}
 `);
 
-      const { status, summary, concatenated_transcript } = JSON.parse(
-        response.data
-      );
+      const { status, summary, concatenated_transcript } =  await response.json()
       console.log(status);
 
       if (status === "queued") {
@@ -422,7 +424,6 @@ export function CallUI({
           </div>
         </div>
       )}
-
     </div>
   );
 }
