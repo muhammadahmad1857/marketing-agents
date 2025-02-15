@@ -8,7 +8,8 @@ export const getPathways = async () => {
     );
     if (pathways.status === 200) {
       const data = await pathways.json();
-      return data;
+      const jsonData = JSON.parse(data)
+      return jsonData;
     }
     return [];
   } catch (error) {
