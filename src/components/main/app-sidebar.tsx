@@ -70,7 +70,7 @@ const data = {
       title: "History",
       url: "/history",
       icon: History,
-      items: [],
+      // items: [],
     },
     {
       title: "Pathway",

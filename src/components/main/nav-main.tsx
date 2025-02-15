@@ -51,7 +51,7 @@ export function NavMain({
                   <SidebarMenuButton
                     tooltip={item.title}
                     className={
-                      pathname === `${item.url}`
+                      pathname.startsWith(item.url)
                         ? "bg-black rounded-md border border-white hover:bg-gray-800 transition-all duration-500 text-white hover:text-white"
                         : ""
                     }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -15,22 +15,8 @@ import Link from "next/link";
 import { deleteHistory } from "@/actions/history";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-
-export interface CallHistory {
-  _id: string;
-  call_id: string;
-  call_to: string;
-  call_from: string;
-  call_date: string;
-  call_time: string;
-  call_duration: string;
-  call_transcript: string;
-  call_status: string;
-  user_email: string;
-  summary: string;
-  price: number;
-  inbound: boolean;
-};
+import { CallHistory } from "@/types";
+import { DataTableSkeleton } from "./dataTableSekeleton";
 
 export function CallHistoryTable({ data }: { data: CallHistory[] }) {
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -145,6 +131,32 @@ export function CallHistoryTable({ data }: { data: CallHistory[] }) {
       ),
     },
   ];
+  const [isLoading, setIsLoading] = useState(true);
+//   const [tableData, setTableData] = useState<CallHistory[]>([]);
+
+  useEffect(() => {
+    // Simulate loading delay
+    const timer = setTimeout(() => {
+    //   setTableData(data);
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [data]);
+
+  if (isLoading) {
+    return (
+     <DataTableSkeleton rowCount={5} columnCount={5}/>
+    );
+  }
+
+//   if (tableData.length === 0) {
+//     return (
+//       <div className="text-center py-10">
+//         <p className="text-muted-foreground">No results found</p>
+//       </div>
+//     );
+//   }
 
   return <DataTable columns={columns} data={data} />;
 }
