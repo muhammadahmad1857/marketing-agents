@@ -207,6 +207,7 @@ export function CallUI({
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       toast.error("Please fill in all required fields");
+      console.log("I ended");
       return;
     }
 
