@@ -1,17 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-"use client"
+"use client";
 
-import * as React from "react"
-import {
-  Phone,
-  History,
-  ArrowUpDown,
-  Home
-} from "lucide-react"
+import * as React from "react";
+import { Phone, History, ArrowUpDown, Home } from "lucide-react";
 
-import { NavMain } from "./nav-main"
-import { NavHome } from "./nav-home"
-import { NavUser } from "./nav-user"
+import { NavMain } from "./nav-main";
+import { NavHome } from "./nav-home";
+import { NavUser } from "./nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -20,17 +15,19 @@ import {
   SidebarRail,
   SidebarTrigger,
   useSidebar,
-} from "@/components/ui/sidebar"
-import Link from "next/link"
-import { Separator } from "../ui/separator"
-import { getCurrentUser } from "@/actions/user"
-import { toast } from "react-toastify"
+} from "@/components/ui/sidebar";
+import Link from "next/link";
+import { Separator } from "../ui/separator";
+import { getCurrentUser } from "@/actions/user";
+import { toast } from "react-toastify";
+import { getHistory } from "@/actions/history";
+import { CallHistory } from "./call-history";
 
 // This is sample data.
 const data = {
   user: {
     name: null,
-    email:null,
+    email: null,
   },
   // teams: [
   //   {
@@ -50,7 +47,6 @@ const data = {
   //   },
   // ],
   navMain: [
-  
     {
       title: "Send Call",
       url: "send-call",
@@ -75,20 +71,7 @@ const data = {
       title: "History",
       url: "history",
       icon: History,
-      // items: [
-      //   {
-      //     title: "Genesis",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Explorer",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Quantum",
-      //     url: "#",
-      //   },
-      // ],
+      items: [],
     },
     {
       title: "Pathway",
@@ -113,82 +96,93 @@ const data = {
       //   },
       // ],
     },
-  //   {
-  //     title: "inbound-agent",
-  //     url: "inbound-agent",
-  //     icon: BotOffIcon,
-  //     items: [
-  //       {
-  //         title: "General",
-  //         url: "#",
-  //       },
-  //       {
-  //         title: "Team",
-  //         url: "#",
-  //       },
-  //       {
-  //         title: "Billing",
-  //         url: "#",
-  //       },
-  //       {
-  //         title: "Limits",
-  //         url: "#",
-  //       },
-  //     ],
-  //   },
+    //   {
+    //     title: "inbound-agent",
+    //     url: "inbound-agent",
+    //     icon: BotOffIcon,
+    //     items: [
+    //       {
+    //         title: "General",
+    //         url: "#",
+    //       },
+    //       {
+    //         title: "Team",
+    //         url: "#",
+    //       },
+    //       {
+    //         title: "Billing",
+    //         url: "#",
+    //       },
+    //       {
+    //         title: "Limits",
+    //         url: "#",
+    //       },
+    //     ],
+    //   },
   ],
-  
+
   home: [
     {
       name: "Home",
       url: "/",
       icon: Home,
     },
-   
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { state } = useSidebar()
-  const [isLoading, setIsLoading] = React.useState(true)
- React.useEffect(() => {
+  const { state } = useSidebar();
+  const [isLoading, setIsLoading] = React.useState(true);
+  React.useEffect(() => {
     const fetchUser = async () => {
       try {
-        setIsLoading(true)
-        const userData = await getCurrentUser()
-        console.log(userData)
-        const {email, user_name} = userData.user
+        setIsLoading(true);
+        const userData = await getCurrentUser();
+        const { email, user_name } = userData.user;
         data.user = {
           email,
-          name:user_name
-        }
+          name: user_name,
+        };
+        const historyIndex = data.navMain.findIndex(
+          (item) => item.title === "History"
+        );
+     
       } catch (error) {
-        console.error("Error fetching user data:", error)
-        toast.error("Failed to load user data")
+        console.error("Error fetching user data:", error);
+        toast.error("Failed to load user data");
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchUser()
-  }, [])
+    fetchUser();
+  }, []);
   // console.log(props)
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         {/* <TeamSwitcher teams={data.teams} /> */}
-        <div className="flex  gap-2 justify-between " >
-          <Link href="/" className={`transition-opacity duration-200 ${state === "collapsed" ? "opacity-0 hidden" : "opacity-100"}`}>
+        <div className="flex  gap-2 justify-between ">
+          <Link
+            href="/"
+            className={`transition-opacity duration-200 ${
+              state === "collapsed" ? "opacity-0 hidden" : "opacity-100"
+            }`}
+          >
             <h1 className="text-3xl font-bold m-b-2">Kognifi.ai</h1>
             <h1 className="text-xs font-semibold mb-6">Ai Call Agent</h1>
           </Link>
-          <Separator orientation="vertical" className={`mr-2 h-full ${state === "collapsed" ? "opacity-0 hidden" : "opacity-100"}`} />
-          <SidebarTrigger/>
+          <Separator
+            orientation="vertical"
+            className={`mr-2 h-full ${
+              state === "collapsed" ? "opacity-0 hidden" : "opacity-100"
+            }`}
+          />
+          <SidebarTrigger />
         </div>
-
       </SidebarHeader>
       <SidebarContent>
-        <NavHome home={data.home}  />
+        <NavHome home={data.home} />
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
@@ -196,5 +190,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

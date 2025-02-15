@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import {  type LucideIcon } from "lucide-react"
+import { ChevronRight, type LucideIcon } from "lucide-react";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -16,24 +16,24 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+} from "@/components/ui/sidebar";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 export function NavMain({
   items,
 }: {
   items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+    isActive?: boolean;
     items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+      title: string;
+      url: string;
+    }[];
+  }[];
 }) {
-  const pathname = usePathname()
+  const pathname = usePathname();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Various Pages</SidebarGroupLabel>
@@ -47,12 +47,22 @@ export function NavMain({
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-              <Link  href={item.url}> 
-                <SidebarMenuButton tooltip={item.title} className={pathname === `/${item.url}` ? "bg-black rounded-md border border-white hover:bg-gray-800 transition-all duration-500 text-white hover:text-white" : ""}>
-                  {item.icon && <item.icon />}
-                <span>{item.title}</span>
-                  {/* <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" /> */}
-                </SidebarMenuButton></Link>
+                <Link href={item.url}>
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    className={
+                      pathname === `/${item.url}`
+                        ? "bg-black rounded-md border border-white hover:bg-gray-800 transition-all duration-500 text-white hover:text-white"
+                        : ""
+                    }
+                  >
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                    {item.items && (
+                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    )}
+                  </SidebarMenuButton>
+                </Link>
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <SidebarMenuSub>
@@ -72,6 +82,5 @@ export function NavMain({
         ))}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }
-

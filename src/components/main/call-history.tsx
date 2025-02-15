@@ -16,7 +16,7 @@ import { deleteHistory } from "@/actions/history";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
-type CallHistory = {
+export interface CallHistory {
   _id: string;
   call_id: string;
   call_to: string;
