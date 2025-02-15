@@ -21,5 +21,5 @@ export async function getCurrentUser() {
   }
   const responseJSON = await response.json();
 
-  return responseJSON;
+  return JSON.parse(responseJSON);
 }
