@@ -151,12 +151,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           router.refresh()
 
         }else{
+          toast.error("Failed to load user data");
           await logout() 
           router.refresh()
 
         }
         console.error("Error fetching user data:", error);
-        toast.error("Failed to load user data");
       } finally {
         setIsLoading(false);
       }
