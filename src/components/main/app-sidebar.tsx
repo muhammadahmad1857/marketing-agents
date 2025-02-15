@@ -20,8 +20,7 @@ import Link from "next/link";
 import { Separator } from "../ui/separator";
 import { getCurrentUser } from "@/actions/user";
 import { toast } from "react-toastify";
-import { getHistory } from "@/actions/history";
-import { CallHistory } from "./call-history";
+
 
 // This is sample data.
 const data = {
@@ -49,7 +48,7 @@ const data = {
   navMain: [
     {
       title: "Send Call",
-      url: "send-call",
+      url: "/send-call",
       icon: Phone,
       isActive: true,
       // items: [
@@ -69,13 +68,13 @@ const data = {
     },
     {
       title: "History",
-      url: "history",
+      url: "/history",
       icon: History,
       items: [],
     },
     {
       title: "Pathway",
-      url: "pathway",
+      url: "/pathway",
       icon: ArrowUpDown,
       // items: [
       //   {
