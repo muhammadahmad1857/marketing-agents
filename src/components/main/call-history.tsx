@@ -26,10 +26,10 @@ export function CallHistoryTable({ data }: { data: CallHistory[] }) {
     setDeletingId(callId);
     try {
       const response = await deleteHistory(callId, userEmail);
-      toast.success(response.message);
+      toast.success(response.message || "Call deleted successfully");
       router.refresh();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error:any) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       toast.error(error || "Failed to delete the history item");
       console.error(error);
     } finally {
@@ -133,32 +133,32 @@ export function CallHistoryTable({ data }: { data: CallHistory[] }) {
       ),
     },
   ];
-//   const [isLoading, setIsLoading] = useState(true);
-// //   const [tableData, setTableData] = useState<CallHistory[]>([]);
+  //   const [isLoading, setIsLoading] = useState(true);
+  // //   const [tableData, setTableData] = useState<CallHistory[]>([]);
 
-//   useEffect(() => {
-//     // Simulate loading delay
-//     const timer = setTimeout(() => {
-//     //   setTableData(data);
-//       setIsLoading(false);
-//     }, 1000);
+  //   useEffect(() => {
+  //     // Simulate loading delay
+  //     const timer = setTimeout(() => {
+  //     //   setTableData(data);
+  //       setIsLoading(false);
+  //     }, 1000);
 
-//     return () => clearTimeout(timer);
-//   }, [data]);
+  //     return () => clearTimeout(timer);
+  //   }, [data]);
 
-//   if (isLoading) {
-//     return (
-//      <DataTableSkeleton rowCount={5} columnCount={5}/>
-//     );
-//   }
+  //   if (isLoading) {
+  //     return (
+  //      <DataTableSkeleton rowCount={5} columnCount={5}/>
+  //     );
+  //   }
 
-//   if (tableData.length === 0) {
-//     return (
-//       <div className="text-center py-10">
-//         <p className="text-muted-foreground">No results found</p>
-//       </div>
-//     );
-//   }
+  //   if (tableData.length === 0) {
+  //     return (
+  //       <div className="text-center py-10">
+  //         <p className="text-muted-foreground">No results found</p>
+  //       </div>
+  //     );
+  //   }
 
   return <DataTable columns={columns} data={data} />;
 }
