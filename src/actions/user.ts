@@ -17,9 +17,11 @@ export async function getCurrentUser() {
     `https://bland.abubakarkhalid.com/users/get_user/${email}`
   );
   if (!response.ok) {
+    console.error("Failed to authenticate user");
     throw new Error("Failed to fetch user data");
+
   }
   const responseJSON = await response.json();
-
-  return JSON.parse(responseJSON);
+  console.log("User fetched successfully", responseJSON);
+  return responseJSON;
 }
