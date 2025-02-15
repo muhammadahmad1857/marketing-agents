@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -131,24 +132,24 @@ export function CallHistoryTable({ data }: { data: CallHistory[] }) {
       ),
     },
   ];
-  const [isLoading, setIsLoading] = useState(true);
-//   const [tableData, setTableData] = useState<CallHistory[]>([]);
+//   const [isLoading, setIsLoading] = useState(true);
+// //   const [tableData, setTableData] = useState<CallHistory[]>([]);
 
-  useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-    //   setTableData(data);
-      setIsLoading(false);
-    }, 1000);
+//   useEffect(() => {
+//     // Simulate loading delay
+//     const timer = setTimeout(() => {
+//     //   setTableData(data);
+//       setIsLoading(false);
+//     }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [data]);
+//     return () => clearTimeout(timer);
+//   }, [data]);
 
-  if (isLoading) {
-    return (
-     <DataTableSkeleton rowCount={5} columnCount={5}/>
-    );
-  }
+//   if (isLoading) {
+//     return (
+//      <DataTableSkeleton rowCount={5} columnCount={5}/>
+//     );
+//   }
 
 //   if (tableData.length === 0) {
 //     return (
