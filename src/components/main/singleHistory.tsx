@@ -4,7 +4,7 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { SquareArrowLeft, Copy, Check } from "lucide-react";
 import Link from "next/link";
-import { notFound, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -27,7 +27,17 @@ const SingleHistory = ({ id }: { id: string }) => {
         const { user } = await getCurrentUser();
         const callData = await getSingleCall(user.email, id);
         if (!callData) {
-            notFound()
+          return (
+            <div className="bg-white text-black flex items-center flex-col justify-center">
+              <h1>The page you are looking for does not exist.</h1>
+              <Link href={"/history"}>
+              <Button variant={'secondary'}>
+                Go back 
+                <SquareArrowLeft className="ml-2" />
+              </Button>
+              </Link>
+            </div>
+          );
         } else {
           setCall(callData);
         }
@@ -63,7 +73,7 @@ const SingleHistory = ({ id }: { id: string }) => {
   }
 
   if (!call) {
-    return null; 
+    return null;
   }
 
   return (
