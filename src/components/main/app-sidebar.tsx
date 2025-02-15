@@ -142,9 +142,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           email,
           name: user_name,
         };
-        const historyIndex = data.navMain.findIndex(
-          (item) => item.title === "History"
-        );
+      
      
       } catch (error) {
         console.error("Error fetching user data:", error);

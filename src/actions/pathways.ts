@@ -1,7 +1,7 @@
 "use server";
 
-
 export const getPathways = async () => {
+  console.log("getpathways");
   try {
     const pathways = await fetch(
       "https://bland.abubakarkhalid.com/pathways/list"

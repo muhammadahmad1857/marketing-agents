@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 
 export async function getCurrentUser() {
+  console.log("User fetching startedd");
   const cookieStore = await cookies();
   const userCookie = cookieStore.get("user");
 
