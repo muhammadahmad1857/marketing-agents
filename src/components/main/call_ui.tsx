@@ -218,7 +218,10 @@ export function CallUI({
     const { user } = await getCurrentUser();
     const email = user.email;
     if (!user.email) {
+      setIsSubmitting(false);
       toast.error("user is unauthorized");
+      console.log("I ended");
+
       return;
     }
     let payload;
@@ -263,6 +266,9 @@ export function CallUI({
         const errorData = await response.json();
         const errData = JSON.parse(errorData);
         toast.error(errData.message || "Failed to submit data");
+        setIsSubmitting(false);
+        console.log("I ended");
+
         return;
       }
 
@@ -272,6 +278,9 @@ export function CallUI({
       const callId = result2.call_id;
       setCallId(callId);
       if (!callId) {
+        setIsSubmitting(false);
+        console.log("I ended");
+
         throw new Error("Call ID not received from the API.");
       }
       console.log("I ended");
