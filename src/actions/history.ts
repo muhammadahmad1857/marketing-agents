@@ -16,7 +16,7 @@ export const getHistory = async (email: string) => {
     console.log("get api ended in success history");
     console.time("get api ended in success history");
 
-    return data;
+    return JSON.parse(data);
   } catch (error) {
     console.log("get api ended in error history");
     console.time("get api endedin error history");
@@ -37,7 +37,7 @@ export const getSingleCall = async (email: string, call_id: string) => {
     }
 
     const data = await response.json();
-    return data;
+    return JSON.parse(data);
   } catch (error) {
     console.error("Error fetching history:", error);
     throw error;
@@ -45,7 +45,6 @@ export const getSingleCall = async (email: string, call_id: string) => {
 };
 
 export const deleteHistory = async (call_id: string, email: string) => {
- 
   try {
     const resp = await fetch(
       `https://bland.abubakarkhalid.com/history/delete_call?call_id=${call_id}&email=${email}`,
@@ -61,7 +60,7 @@ export const deleteHistory = async (call_id: string, email: string) => {
       throw new Error(`There is an issue while deleting call details`);
     }
     const data = await resp.json();
-    return data;
+    return JSON.parse(data);
   } catch (error) {
     console.error("Error deleting history:", error);
     throw new Error(`There is an issue while deleting call details`);
