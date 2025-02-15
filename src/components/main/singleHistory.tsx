@@ -13,6 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getSingleCall } from "@/actions/history";
 import { getCurrentUser } from "@/actions/user";
 import { CallHistory } from "@/types";
+import { toast } from "react-toastify";
 
 const SingleHistory = ({ id }: { id: string }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,19 +32,20 @@ const SingleHistory = ({ id }: { id: string }) => {
             <div className="bg-white text-black flex items-center flex-col justify-center">
               <h1>The page you are looking for does not exist.</h1>
               <Link href={"/history"}>
-              <Button variant={'secondary'}>
-                Go back 
-                <SquareArrowLeft className="ml-2" />
-              </Button>
+                <Button variant={"secondary"}>
+                  Go back
+                  <SquareArrowLeft className="ml-2" />
+                </Button>
               </Link>
             </div>
           );
         } else {
           setCall(callData);
         }
-      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
         console.error("Error fetching call details:", error);
-        router.push("/404");
+        toast.error(error.message || "Error fetchin call details");
       } finally {
         setIsLoading(false);
       }
