@@ -1,7 +1,7 @@
 "use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import NextProgress from "next-progress";
+import NextNProgress from 'nextjs-progressbar';
 
 import { Bounce, ToastContainer } from "react-toastify";
 
@@ -43,7 +43,7 @@ export default function RootLayout({
           theme="colored"
           transition={Bounce}
         />
-        <NextProgress color={"#0a0a0a"} height={2} disableSameRoute />
+        <NextNProgress color={"#0a0a0a"} height={2}  />
       </body>
     </html>
   );
