@@ -261,18 +261,21 @@ export function CallUI({
       });
       if (!response.ok) {
         const errorData = await response.json();
-        toast.error(errorData.message || "Failed to submit data");
+        const errData = JSON.parse(errorData);
+        toast.error(errData.message || "Failed to submit data");
         return;
       }
 
       const result = await response.json();
       console.log("Submission successful:", result);
-      const result2 = JSON.parse(result)
+      const result2 = JSON.parse(result);
       const callId = result2.call_id;
       setCallId(callId);
       if (!callId) {
         throw new Error("Call ID not received from the API.");
       }
+      console.log("I ended");
+
       toast.success("Your call has been sent successfully.");
     } catch (error) {
       console.error("Error submitting data:", error);
@@ -281,6 +284,7 @@ export function CallUI({
           ? error.message
           : "Failed to send call. Please try again."
       );
+      console.log("I ended");
     } finally {
       setIsSubmitting(false);
       console.log("I ended");
@@ -301,10 +305,10 @@ export function CallUI({
       const response =
         await fetch(`https://bland.abubakarkhalid.com/call_transcript/${callId}
 `);
-const resp =  await response.json();
+      const resp = await response.json();
 
-      const { status, summary, concatenated_transcript } = JSON.parse(resp)
-       
+      const { status, summary, concatenated_transcript } = JSON.parse(resp);
+
       console.log(status);
 
       if (status === "queued") {
