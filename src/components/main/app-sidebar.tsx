@@ -20,7 +20,8 @@ import Link from "next/link";
 import { Separator } from "../ui/separator";
 import { getCurrentUser } from "@/actions/user";
 import { toast } from "react-toastify";
-
+import { useRouter } from "next/navigation";
+import { logout } from "@/actions/auth";
 
 // This is sample data.
 const data = {
@@ -132,6 +133,8 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const [isLoading, setIsLoading] = React.useState(true);
+  const [count, setCount] = React.useState(0);
+  const router = useRouter()
   React.useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -142,9 +145,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           email,
           name: user_name,
         };
-      
-     
       } catch (error) {
+        setCount((prev) => prev + 1);
+        if(count<=3){
+          router.refresh()
+
+        }else{
+          await logout() 
+          router.refresh()
+
+        }
         console.error("Error fetching user data:", error);
         toast.error("Failed to load user data");
       } finally {

@@ -19,6 +19,7 @@ export async function getCurrentUser() {
   if (!response.ok) {
     throw new Error("Failed to fetch user data");
   }
+  const responseJSON = await response.json();
 
-  return response.json();
+  return responseJSON;
 }
