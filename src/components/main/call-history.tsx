@@ -77,7 +77,7 @@ export function CallHistoryTable({ data }: { data: CallHistory[] }) {
       header: "Duration",
       cell: ({ row }) => (
         <div>
-          {row.original.call_duration ? row.original.call_duration : "-"}
+          {row.original.call_duration ? `${row.original.call_duration}s` : "-"}
         </div>
       ),
     },
