@@ -28,9 +28,10 @@ export function CallHistoryTable({ data }: { data: CallHistory[] }) {
       const response = await deleteHistory(callId, userEmail);
       toast.success(response.message);
       router.refresh();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      toast.error("Failed to delete the history item");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
+      toast.error(error || "Failed to delete the history item");
+      console.error(error);
     } finally {
       setDeletingId(null);
     }

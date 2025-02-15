@@ -1,7 +1,5 @@
 "use server";
 
-import axios from "axios";
-
 export const getHistory = async (email: string) => {
   console.log("get api started history");
   console.time("get api started history");
@@ -29,7 +27,6 @@ export const getHistory = async (email: string) => {
 };
 
 export const getSingleCall = async (email: string, call_id: string) => {
-  
   try {
     const response = await fetch(
       `https://bland.abubakarkhalid.com/history/get_call?call_id=${call_id}&email=${email}`
@@ -48,16 +45,23 @@ export const getSingleCall = async (email: string, call_id: string) => {
 };
 
 export const deleteHistory = async (call_id: string, email: string) => {
+ 
   try {
-    const resp = await axios.delete(
-      `https://bland.abubakarkhalid.com/history/delete?call_id=${call_id}&email=${email}`
+    const resp = await fetch(
+      `https://bland.abubakarkhalid.com/history/delete_call?call_id=${call_id}&email=${email}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
-    console.log(resp);
 
-    if (resp.status !== 200) {
+    if (!resp.ok) {
       throw new Error(`There is an issue while deleting call details`);
     }
-    return resp.data;
+    const data = await resp.json();
+    return data;
   } catch (error) {
     console.error("Error deleting history:", error);
     throw new Error(`There is an issue while deleting call details`);
