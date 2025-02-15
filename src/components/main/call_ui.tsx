@@ -194,6 +194,7 @@ export function CallUI({
   };
 
   const handleSubmit = async () => {
+    console.log("I started");
     const allFeatures = [...basicFeatures, ...advancedFeatures];
     const newErrors: Record<string, string> = {};
 
@@ -245,21 +246,19 @@ export function CallUI({
         ignore_button_press: formData.ignore_button_press === "true",
         record_call: formData.record_call === "true",
         user_email: email,
+        interruption_threshold: Number(formData.interruption_threshold),
       };
     }
 
     console.log("user", payload);
     try {
-     const response=  await fetch(
-        apiEndpoint,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      )
+      const response = await fetch(apiEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
       if (!response.ok) {
         const errorData = await response.json();
         toast.error(errorData.message || "Failed to submit data");
@@ -268,7 +267,8 @@ export function CallUI({
 
       const result = await response.json();
       console.log("Submission successful:", result);
-      const callId = result.call_id;
+      const result2 = JSON.parse(result)
+      const callId = result2.call_id;
       setCallId(callId);
       if (!callId) {
         throw new Error("Call ID not received from the API.");
@@ -283,6 +283,7 @@ export function CallUI({
       );
     } finally {
       setIsSubmitting(false);
+      console.log("I ended");
     }
   };
   const handleGetTranscript = async () => {
@@ -300,8 +301,10 @@ export function CallUI({
       const response =
         await fetch(`https://bland.abubakarkhalid.com/call_transcript/${callId}
 `);
+const resp =  await response.json();
 
-      const { status, summary, concatenated_transcript } =  await response.json()
+      const { status, summary, concatenated_transcript } = JSON.parse(resp)
+       
       console.log(status);
 
       if (status === "queued") {
