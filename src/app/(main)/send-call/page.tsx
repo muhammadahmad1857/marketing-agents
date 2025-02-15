@@ -112,9 +112,10 @@ export default function FeaturesPage() {
     },
     {
       key: "model",
-      type: "text",
+      type: "dropdown",
       label: "Model",
       placeholder: "Enter model",
+      options: ["enhanced", "base", "turbo"],
       defaultValue: "enhanced",
     },
     {
@@ -172,7 +173,7 @@ export default function FeaturesPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Features Configuration</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Send Call</h1>
       <CallUI
         basicFeaturesData={basicFeatures}
         advancedFeaturesData={advancedFeatures}

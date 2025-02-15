@@ -2,8 +2,8 @@ import { getPathways } from "@/actions/pathways";
 import { CallUI, FeatureType } from "@/components/main/call_ui";
 
 export default async function FeaturesPage() {
-    const rawPathways = await getPathways();
-    const pathways = Array.isArray(rawPathways) ? rawPathways : [];
+  const rawPathways = await getPathways();
+  const pathways = Array.isArray(rawPathways) ? rawPathways : [];
 
   const languages = [
     { code: "en", name: "English" },
@@ -80,7 +80,7 @@ export default async function FeaturesPage() {
       label: "First Sentence",
       placeholder: "Enter the first sentence",
       defaultValue: "", // User will input this
-      required: true,
+      required: false,
     },
     {
       key: "language",
@@ -101,13 +101,20 @@ export default async function FeaturesPage() {
       required: true,
     },
     {
+      key: "interruption_threshold",
+      type: "text",
+      label: "Interruption Threshold",
+      placeholder: "Enter interruption threshold",
+      defaultValue: 100,
+    },
+    {
       key: "pathway_id",
       type: "dropdown",
       label: "Pathway ID",
       placeholder: "Automatically fetched",
-defaultValue: pathways.length > 0 ? pathways[0].id : null,
+      defaultValue: pathways.length > 0 ? pathways[0].id : null,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      options: pathways.map((pathway:any) => ({
+      options: pathways.map((pathway: any) => ({
         label: `${pathway.name}`,
         value: pathway.id,
       })),
@@ -157,7 +164,7 @@ defaultValue: pathways.length > 0 ? pathways[0].id : null,
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Features Configuration</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Send Pathway Call</h1>
       <CallUI
         basicFeaturesData={basicFeatures}
         advancedFeaturesData={advancedFeatures}

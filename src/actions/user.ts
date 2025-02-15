@@ -15,7 +15,6 @@ export async function getCurrentUser() {
   const response = await fetch(
     `https://bland.abubakarkhalid.com/users/get_user/${email}`
   );
-  console.log("response", response);
   if (!response.ok) {
     throw new Error("Failed to fetch user data");
   }

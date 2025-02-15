@@ -20,15 +20,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Toaster, toast } from "sonner";
+import {  toast } from "react-toastify";
 import type React from "react"; // Added import for React
 import axios from "axios";
 import { getCurrentUser } from "@/actions/user";
 import { Loader2, X } from "lucide-react";
 import { motion } from "framer-motion";
-// 1. Make a how it works
-// 2. For both user and devs
-// 3. A slight text not too much text
+//
 export type FeatureType = {
   key: string;
   type: "textarea" | "text" | "dropdown";
@@ -155,6 +153,7 @@ export function CallUI({
               <SelectContent>
                 {feature.options?.map((option) => (
                   <SelectItem
+                    className="capitalize"
                     key={typeof option === "string" ? option : option.value}
                     value={typeof option === "string" ? option : option.value}
                   >
@@ -345,18 +344,18 @@ export function CallUI({
         className="w-full"
       >
         <AccordionItem value="basic">
-          <AccordionTrigger className="bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-t-lg">
+          <AccordionTrigger className="bg-black text-white hover:bg-[#0a0a0a] px-4 py-2 transition-colors  rounded-t-lg">
             Basic Features
           </AccordionTrigger>
-          <AccordionContent className="bg-blue-50 px-4 py-2 rounded-b-lg">
+          <AccordionContent className=" px-4 py-2 rounded-b-lg">
             {renderFeatures(basicFeatures, true)}
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="advanced">
-          <AccordionTrigger className="bg-green-100 hover:bg-green-200 px-4 py-2 rounded-t-lg mt-2">
+          <AccordionTrigger className="bg-black text-white hover:bg-[#0a0a0a] transition-colors px-4 py-2 rounded-t-lg mt-2">
             Advanced Features
           </AccordionTrigger>
-          <AccordionContent className="bg-green-50 px-4 py-2 rounded-b-lg">
+          <AccordionContent className=" px-4 py-2 rounded-b-lg">
             {renderFeatures(advancedFeatures, false)}
           </AccordionContent>
         </AccordionItem>
@@ -424,7 +423,6 @@ export function CallUI({
         </div>
       )}
 
-      <Toaster />
     </div>
   );
 }
