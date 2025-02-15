@@ -139,7 +139,7 @@ const SingleHistory = ({ id }: { id: string }) => {
                 </Badge>
               }
             />
-            <DetailItem label="Price" value={`$${call.price ? call.price.toFixed(2)}:'0.00'`} />
+            <DetailItem label="Price" value={`$${call.price ? call.price.toFixed(2):'0.00'}`} />
           </CardContent>
         </Card>
 
