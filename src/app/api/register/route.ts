@@ -1,4 +1,3 @@
-import axios from "axios";
 import { NextResponse } from "next/server";
 
 interface User {
@@ -10,13 +9,22 @@ interface User {
 
 export async function POST(request: Request) {
   const data: User = await request.json();
+
   try {
-    const response = await axios.post(
+    const fetchResponse = await fetch(
       "https://bland.abubakarkhalid.com/users/register",
-      data
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
     );
 
-    if (response.status === 200) {
+    if (fetchResponse.ok) {
+      // Optionally, you can use the actual message from the API response
+      await fetchResponse.json();
       const res = NextResponse.json(
         { message: "User registered successfully" },
         { status: 200 }
@@ -27,11 +35,11 @@ export async function POST(request: Request) {
       });
       // Set the logged_in cookie immediately after registration
       res.cookies.set("user", userCookies, {
-        httpOnly: false, // Now accessible via client-side JavaScript
+        httpOnly: false, // Accessible via client-side JavaScript
         sameSite: "strict",
         path: "/",
         secure: process.env.NODE_ENV === "production",
-        maxAge: 86400,
+        maxAge: 86400, // 24 hours in seconds
       });
 
       return res;
@@ -42,7 +50,7 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   } catch (error) {
-    console.log(error);
+    console.error("Registration error:", error);
     return NextResponse.json(
       { message: "Registration failed" },
       { status: 500 }

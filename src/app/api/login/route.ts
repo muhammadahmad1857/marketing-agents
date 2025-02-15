@@ -1,47 +1,55 @@
-import axios from "axios";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const { email, password } = await request.json();
+
   try {
-    const response = await axios.post(
+    const fetchResponse = await fetch(
       "https://bland.abubakarkhalid.com/users/verify_user",
       {
-        email,
-        password,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
       }
     );
 
-    // Assuming a successful response returns a status field or similar
-    if (response.status === 200) {
+    // Check if the request was successful
+    if (fetchResponse.ok) {
+      const data = await fetchResponse.json();
       const res = NextResponse.json(
-        { message: response.data.message },
+        { message: data.message },
         { status: 200 }
       );
 
       const userCookies = JSON.stringify({
         logged_in: true,
-        email: email,
+        email,
       });
-      // Set the logged_in cookie immediately after registration
+
+      // Set the logged_in cookie immediately after login
       res.cookies.set("user", userCookies, {
         httpOnly: true,
         sameSite: "strict",
         path: "/",
         secure: process.env.NODE_ENV === "production",
-        maxAge: 86400,
+        maxAge: 86400, // 24 hours in seconds
       });
 
       return res;
+    } else {
+      const errorData = await fetchResponse.json();
+      return NextResponse.json(
+        { message: errorData.detail || "Unauthorized" },
+        { status: 401 }
+      );
     }
-
-    // If login failed, send an unauthorized response
-    return NextResponse.json(
-      { message: response.data.detail },
-      { status: 401 }
-    );
   } catch (error) {
-    console.log(error);
-    return NextResponse.json({ message: "Login failed!" }, { status: 500 });
+    console.error("Login error:", error);
+    return NextResponse.json(
+      { message: "Login failed!" },
+      { status: 500 }
+    );
   }
 }
