@@ -1,7 +1,7 @@
 "use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import NextNProgress from 'nextjs-progressbar';
+import NextTopLoader from "nextjs-toploader";
 
 import { Bounce, ToastContainer } from "react-toastify";
 
@@ -28,6 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden max-w-[100vw] `}
       >
+        <NextTopLoader color="#0a0a0a" height={5} />
         {children}
         <ToastContainer
           position="top-right"
@@ -43,7 +44,6 @@ export default function RootLayout({
           theme="colored"
           transition={Bounce}
         />
-        <NextNProgress color={"#0a0a0a"} height={2}  />
       </body>
     </html>
   );
