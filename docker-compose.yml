@@ -1,15 +1,18 @@
 version: "3"
 services:
   app:
-    image: calling-agent
+    image: http://ghcr.io/muhammadahmad1857/marketing-agents-ghcr:latest
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.calling-agent.rule=Host(`calling-agent.abubakarkhalid.com`)"
       - "traefik.http.routers.calling-agent.entrypoints=websecure"
+      - "traefik.http.services.calling-agent.loadbalancer.server.port=8007"
       - "traefik.http.routers.calling-agent.tls=true"
       - "traefik.http.routers.calling-agent.tls.certresolver=myresolver"
-    networks:
-      - traefik
+      networks:
+        - traefik
+      pull_policy: always
+      command: ["npm", "start"]
 networks:
   traefik:
     external: true
