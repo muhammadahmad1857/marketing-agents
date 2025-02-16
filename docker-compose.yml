@@ -12,7 +12,7 @@ services:
     networks:
       - traefik
     pull_policy: always
-    command: ["npm" ,"start"]
+    command: ["next", "start"]
 
 networks:
   traefik:
