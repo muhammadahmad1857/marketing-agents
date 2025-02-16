@@ -1,7 +1,30 @@
+# version: "3"
+# services:
+#   app:
+#     image: ghcr.io/muhammadahmad1857/marketing-agents-ghcr:latest
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.calling-agent.rule=Host(`calling-agent.abubakarkhalid.com`)"
+#       - "traefik.http.routers.calling-agent.entrypoints=websecure"
+#       - "traefik.http.services.calling-agent.loadbalancer.server.port=8007"
+#       - "traefik.http.routers.calling-agent.tls=true"
+#       - "traefik.http.routers.calling-agent.tls.certresolver=myresolver"
+#     networks:
+#       - traefik
+#     pull_policy: always
+#     command: ["next", "start"]
+
+# networks:
+#   traefik:
+#     external: true
+
 version: "3"
 services:
   app:
-    image: ghcr.io/muhammadahmad1857/marketing-agents-ghcr:latest
+    build: .
+    container_name: marketing-agents
+    ports:
+      - "8007:8007"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.calling-agent.rule=Host(`calling-agent.abubakarkhalid.com`)"
@@ -11,8 +34,6 @@ services:
       - "traefik.http.routers.calling-agent.tls.certresolver=myresolver"
     networks:
       - traefik
-    pull_policy: always
-    command: ["next", "start"]
 
 networks:
   traefik:
