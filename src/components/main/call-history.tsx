@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "./dataTable";
-import Link from "next/link";
+import {Link} from "next-view-transitions";
 import { deleteHistory } from "@/actions/history";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";

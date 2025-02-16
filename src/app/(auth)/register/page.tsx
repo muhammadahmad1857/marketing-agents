@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Link from "next/link";
+import {Link} from "next-view-transitions";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -48,9 +48,7 @@ export default function SignupForm() {
         role,
       });
       console.log("response", response);
-      toast.success(
-        response.data.message || "User registered successfully"
-      );
+      toast.success(response.data.message || "User registered successfully");
 
       // Store the user's email in local storage so it can be used in other pages
       localStorage.setItem("userEmail", email);
@@ -63,7 +61,7 @@ export default function SignupForm() {
 
       // Redirect to the homepage or another route
       router.refresh();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
       toast.error(

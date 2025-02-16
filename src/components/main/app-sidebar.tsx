@@ -16,7 +16,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import Link from "next/link";
+import {Link} from "next-view-transitions";
 import { Separator } from "../ui/separator";
 import { getCurrentUser } from "@/actions/user";
 import { toast } from "react-toastify";
@@ -134,7 +134,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const [isLoading, setIsLoading] = React.useState(true);
   const [count, setCount] = React.useState(0);
-  const router = useRouter()
+  const router = useRouter();
   React.useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -147,14 +147,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         };
       } catch (error) {
         setCount((prev) => prev + 1);
-        if(count<=3){
-          router.refresh()
-
-        }else{
+        if (count <= 3) {
+          router.refresh();
+        } else {
           toast.error("Failed to load user data");
-          await logout() 
-          router.refresh()
-
+          await logout();
+          router.refresh();
         }
         console.error("Error fetching user data:", error);
       } finally {

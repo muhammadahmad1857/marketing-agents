@@ -3,7 +3,7 @@
 import type React from "react";
 import { useState, useEffect } from "react";
 import { SquareArrowLeft, Copy, Check } from "lucide-react";
-import Link from "next/link";
+import {Link} from "next-view-transitions";
 import { useRouter } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";

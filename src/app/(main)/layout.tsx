@@ -1,7 +1,7 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/main/app-sidebar";
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
+import {Link} from "next-view-transitions";
 
 export default function MainLayout({
   children,

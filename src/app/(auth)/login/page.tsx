@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -15,7 +14,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import {Link} from "next-view-transitions";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -41,7 +40,7 @@ export default function LoginPage() {
       toast.success(response.data.message || "Logged in successfully");
 
       router.refresh();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error(err);
       const errorMsg =
