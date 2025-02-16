@@ -3,7 +3,7 @@
 import type React from "react";
 import { useState, useEffect } from "react";
 import { SquareArrowLeft, Copy, Check } from "lucide-react";
-import {Link} from "next-view-transitions";
+import { Link } from "next-view-transitions";
 import { useRouter } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
@@ -154,9 +154,9 @@ const SingleHistory = ({ id }: { id: string }) => {
             <CardTitle>Transcript</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
+            <pre className="text-sm text-muted-foreground">
               {call.call_transcript || "No transcript available"}
-            </p>
+            </pre>
           </CardContent>
         </Card>
 
