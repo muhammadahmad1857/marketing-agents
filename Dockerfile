@@ -4,4 +4,4 @@ COPY . .
 RUN npm install
 RUN npm run build
 EXPOSE 8007
-ENTRYPOINT [ "npm", "start"]
+ENTRYPOINT [ "next", "start","-p","8007"]
