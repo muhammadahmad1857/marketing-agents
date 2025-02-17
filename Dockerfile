@@ -2,7 +2,7 @@ FROM node:latest
 WORKDIR /project
 # Copy package.json and install dependencies
 COPY package*.json .
-RUN npm install
+RUN npm install --force
 COPY . .
 
 RUN npm run build
