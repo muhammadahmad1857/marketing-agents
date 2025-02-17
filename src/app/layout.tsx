@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden max-w-[100vw] `}
       >
         <ViewTransitions>
-        <NextTopLoader color="#0a0a0a" height={5} />
+        <NextTopLoader color="#34b7eb" height={5} />
         {children}
         <ToastContainer
           position="top-right"
