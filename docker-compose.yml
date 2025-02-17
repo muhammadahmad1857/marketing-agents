@@ -17,23 +17,24 @@
 # networks:
 #   traefik:
 #     external: true
-
 version: "3"
 services:
   app:
-    build: .
-    container_name: marketing-agents
-    ports:
-      - "8007:8007"
+    context: . # This tells Docker Compose to use the Dockerfile in the current directory
+    dockerfile: Dockerfile # Optional if your file is named "Dockerfile"
+    image: ghcr.io/muhammadahmad1857/marketing-agents-ghcr:latest # Name of the built image
+    container_name: calling-agent-container
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.calling-agent.rule=Host(`calling-agent.abubakarkhalid.com`)"
+      - "traefik.http.routers.calling-agent.rule=Host(calling-agentabubakarkhalid.com)"
       - "traefik.http.routers.calling-agent.entrypoints=websecure"
       - "traefik.http.services.calling-agent.loadbalancer.server.port=8007"
       - "traefik.http.routers.calling-agent.tls=true"
       - "traefik.http.routers.calling-agent.tls.certresolver=myresolver"
     networks:
       - traefik
+    pull_policy: always
+    command: ["next", "start", "-p", "8007"]
 
 networks:
   traefik:
