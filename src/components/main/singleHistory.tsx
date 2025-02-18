@@ -154,7 +154,7 @@ const SingleHistory = ({ id }: { id: string }) => {
             <CardTitle>Transcript</CardTitle>
           </CardHeader>
           <CardContent>
-            <pre className="text-sm text-muted-foreground">
+            <pre className="text-sm text-wrap text-muted-foreground">
               {call.call_transcript || "No transcript available"}
             </pre>
           </CardContent>
