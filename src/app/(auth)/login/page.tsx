@@ -14,7 +14,6 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {Link} from "next-view-transitions";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -107,12 +106,12 @@ export default function LoginPage() {
               </Button>
             </div>
 
-            <div className="mt-4 text-center text-sm">
+            {/* <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
               <Link href="/register" className="underline underline-offset-4">
                 Sign up
               </Link>
-            </div>
+            </div> */}
           </form>
         </CardContent>
       </Card>
