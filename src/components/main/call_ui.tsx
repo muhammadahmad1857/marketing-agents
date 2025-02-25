@@ -239,6 +239,7 @@ export function CallUI({
         tools: Array.isArray(formData.tools) ? formData.tools : [],
         keywords: Array.isArray(formData.keywords) ? formData.keywords : [],
         user_email: email,
+post_call_webhook:null
       };
     } else {
       payload = {
