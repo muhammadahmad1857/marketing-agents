@@ -84,7 +84,7 @@ export default function FeaturesPage() {
       defaultValue: "Nat",
     },
     {
-      key: "recording",
+      key: "record_call",
       type: "dropdown",
       label: "Recording",
       options: ["true", "false"],
