@@ -7,7 +7,7 @@ services:
     container_name: calling-agent-container
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.calling-agent.rule=Host(calling-agentabubakarkhalid.com)"
+      - "traefik.http.routers.calling-agent.rule=Host(calling-agent.kognifi.ai)"
       - "traefik.http.routers.calling-agent.entrypoints=websecure"
       - "traefik.http.services.calling-agent.loadbalancer.server.port=8007"
       - "traefik.http.routers.calling-agent.tls=true"
